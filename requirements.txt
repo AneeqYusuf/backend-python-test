@@ -1,3 +1,6 @@
 Flask
 Jinja2
 docopt
+flask-sqlalchemy
+flask-migrate
+wekzeug
