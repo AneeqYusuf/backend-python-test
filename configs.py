@@ -8,3 +8,4 @@ class Config(object):
     SECRET_KEY = 'development key'
     USERNAME = 'admin'
     PASSWORD = 'default'
+    POSTS_PER_PAGE = 3

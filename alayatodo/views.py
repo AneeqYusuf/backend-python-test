@@ -4,7 +4,8 @@ from flask import (
     render_template,
     request,
     session,
-    jsonify
+    jsonify,
+    url_for
     )
 
 
@@ -51,10 +52,13 @@ def todo_json(id):
 @app.route('/todo', methods=['GET'])
 @app.route('/todo/', methods=['GET'])
 def todos():
+    page = request.args.get('page', 1, type=int)    
     if not session.get('logged_in'):
         return redirect('/login')
-    todos = models.Todos.query.all()
-    return render_template('todos.html', todos=todos, empty=False)
+    todos = models.Todos.query.paginate(page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('todos', page=todos.next_num) if todos.has_next else None
+    prev_url = url_for('todos', page=todos.prev_num) if todos.has_prev else None
+    return render_template('todos.html', todos=todos.items, empty=False, next_url = next_url, prev_url = prev_url)
 
 
 @app.route('/todo', methods=['POST'])

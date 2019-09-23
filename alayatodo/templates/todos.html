@@ -4,7 +4,7 @@
 <div class="col-md-4 col-md-offset-4">
     <h1>Todo List:</h1>
     <table class="table table-striped">
-        <th>#</th><th>User</th><th>Description</th><th></th>
+        <th>#</th><th>User</th><th>Description</th><th>Status</th><th>View JSON</th><th>Delete</th>
         {% for todo in todos %}
             <tr>
                 <td>{{ todo.id }}</td>
@@ -31,6 +31,12 @@
                 </td>
             </tr>
         {% endfor %}
+        {% if prev_url %}
+            <a href="{{ prev_url }}">Newer posts</a>
+        {% endif %}
+        {% if next_url %}
+        <a href="{{ next_url }}">Older posts</a>
+        {% endif %}
         <tr>
             <form method="post" action="{{ url_for('todos_POST') }}">
                 {% if empty == True %}
