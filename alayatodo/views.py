@@ -49,7 +49,7 @@ def todos():
     if not session.get('logged_in'):
         return redirect('/login')
     todos = models.Todos.query.all()
-    return render_template('todos.html', todos=todos)
+    return render_template('todos.html', todos=todos, empty=False)
 
 
 @app.route('/todo', methods=['POST'])
@@ -57,6 +57,10 @@ def todos():
 def todos_POST():
     if not session.get('logged_in'):
         return redirect('/login')
+    desc = request.form.get('description')
+    if (desc == ''):
+        todos = models.Todos.query.all()
+        return render_template('todos.html', todos=todos, empty=True)
     todos = models.Todos()
     todos.user_id = models.Users.query.filter_by(username = session.get('username')).first().id
     todos.description = request.form.get('description', '')

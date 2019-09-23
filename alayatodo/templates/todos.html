@@ -23,6 +23,12 @@
         {% endfor %}
         <tr>
             <form method="post" action="{{ url_for('todos_POST') }}">
+                {% if empty == True %}
+                <td>
+                  <p color="red">The description field cannot be empty</p>
+                </td>
+                {% else %}
+                {% endif %}
                 <td colspan="3">
                     <input type="textbox" name="description" class="small-6 small-center" placeholder="Description...">
                 </td>
