@@ -4,3 +4,5 @@ docopt
 flask-sqlalchemy
 flask-migrate
 wekzeug
+flask_jwt_extended
+flask_wtf

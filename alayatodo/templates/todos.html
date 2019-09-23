@@ -32,13 +32,14 @@
             </tr>
         {% endfor %}
         {% if prev_url %}
-            <a href="{{ prev_url }}">Newer posts</a>
+            <a href="{{ prev_url }}">Older posts</a>
         {% endif %}
         {% if next_url %}
-        <a href="{{ next_url }}">Older posts</a>
+        <a href="{{ next_url }}">Newer posts</a>
         {% endif %}
         <tr>
             <form method="post" action="{{ url_for('todos_POST') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 {% if empty == True %}
                 <td>
                   <p color="red">The description field cannot be empty</p>

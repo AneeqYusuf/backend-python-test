@@ -9,3 +9,5 @@ class Config(object):
     USERNAME = 'admin'
     PASSWORD = 'default'
     POSTS_PER_PAGE = 3
+    WTF_CSRF_SECRET_KEY = 'extra secure layer'
+    JWT_SECRET_KEY = 'another layer'

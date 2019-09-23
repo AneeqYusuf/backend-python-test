@@ -1,4 +1,4 @@
-from alayatodo import app, models
+from alayatodo import app, models, csrf
 from flask import (
     redirect,
     render_template,
@@ -8,7 +8,6 @@ from flask import (
     url_for,
     flash
     )
-
 
 @app.route('/')
 def home():
@@ -26,8 +25,6 @@ def login_POST():
     password = request.form.get('password')
     
     user = models.Users.query.filter_by(username=username).first()
-    user.set_pass(password)
-    models.db.session.commit()
     if(user.check_pass(password) == True):
         session['username'] = username
         session['logged_in'] = True
@@ -82,6 +79,7 @@ def todos_POST():
 
 
 @app.route('/todo/<id>', methods=['POST'])
+@csrf.exempt
 def todo_delete(id):
     if not session.get('logged_in'):
         return redirect('/login')
@@ -91,6 +89,7 @@ def todo_delete(id):
     return redirect('/todo')
 
 @app.route('/todostatus/<id>', methods=['GET'])
+@csrf.exempt
 def todo_update(id):
     if not session.get('logged_in'):
         return redirect('/login')
