@@ -5,7 +5,8 @@ from flask import (
     request,
     session,
     jsonify,
-    url_for
+    url_for,
+    flash
     )
 
 
@@ -76,6 +77,7 @@ def todos_POST():
     todos.status = 'incomplete'
     models.db.session.add(todos)
     models.db.session.commit()
+    flash('New record added!')
     return redirect('/todo')
 
 
@@ -85,6 +87,7 @@ def todo_delete(id):
         return redirect('/login')
     models.db.session.delete(models.Todos.query.get(id))
     models.db.session.commit()
+    flash('Record with id {0} deleted!'.format(id))
     return redirect('/todo')
 
 @app.route('/todostatus/<id>', methods=['GET'])
@@ -97,4 +100,5 @@ def todo_update(id):
     else:
         todo.status = 'complete'
     models.db.session.commit()
+    flash('Status changed to {0}'.format(todo.status))
     return redirect('/todo')
