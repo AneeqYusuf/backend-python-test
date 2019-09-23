@@ -15,6 +15,11 @@
                     </a>
                 </td>
                 <td>
+                    <a href = "{{ url_for('todo_update', id=todo.id) }}">
+                        {{ todo.status }}
+                    </a>
+                </td>
+                <td>
                     <form method="post" action="{{ url_for('todo_delete', id=todo.id) }}">
                         <button type="submit" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove glyphicon-white"></span></button>
                     </form>

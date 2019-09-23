@@ -64,6 +64,7 @@ def todos_POST():
     todos = models.Todos()
     todos.user_id = models.Users.query.filter_by(username = session.get('username')).first().id
     todos.description = request.form.get('description', '')
+    todos.status = 'incomplete'
     models.db.session.add(todos)
     models.db.session.commit()
     return redirect('/todo')
@@ -74,5 +75,17 @@ def todo_delete(id):
     if not session.get('logged_in'):
         return redirect('/login')
     models.db.session.delete(models.Todos.query.get(id))
+    models.db.session.commit()
+    return redirect('/todo')
+
+@app.route('/todostatus/<id>', methods=['GET'])
+def todo_update(id):
+    if not session.get('logged_in'):
+        return redirect('/login')
+    todo = models.Todos.query.get(id)
+    if (todo.status == 'complete'):
+        todo.status = 'incomplete'
+    else:
+        todo.status = 'complete'
     models.db.session.commit()
     return redirect('/todo')
