@@ -3,7 +3,8 @@ from flask import (
     redirect,
     render_template,
     request,
-    session
+    session,
+    jsonify
     )
 
 
@@ -42,6 +43,10 @@ def todo(id):
     todo = models.Todos.query.get(id)
     return render_template('todo.html', todo=todo)
 
+@app.route('/todo/<id>/json', methods=['GET'])
+def todo_json(id):
+    todo = models.Todos.query.get(id).__repr__()
+    return jsonify(todo)
 
 @app.route('/todo', methods=['GET'])
 @app.route('/todo/', methods=['GET'])

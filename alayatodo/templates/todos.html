@@ -20,6 +20,11 @@
                     </a>
                 </td>
                 <td>
+                    <form method="get" action="{{ url_for('todo_json', id=todo.id) }}">
+                        <button type="submit" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-list-alt glyphicon-white"></span></button>
+                    </form>
+                </td>
+                <td>
                     <form method="post" action="{{ url_for('todo_delete', id=todo.id) }}">
                         <button type="submit" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove glyphicon-white"></span></button>
                     </form>

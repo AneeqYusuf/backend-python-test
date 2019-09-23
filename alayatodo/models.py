@@ -13,9 +13,15 @@ class Users (db.Model):
         
     def check_pass(self, password):
         return check_password_hash(self.password, password)
+    
+    def __repr__(self):
+        return {'id': self.id, 'username': self.username}
 
 class Todos (db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     status = db.Column(db.String(255), nullable=False)
+    
+    def __repr__(self):
+        return {'id': self.id, 'user_id': self.user_id, 'description': self.description, 'status': self.status}
